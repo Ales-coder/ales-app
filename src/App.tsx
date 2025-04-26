@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Library } from "./Library";
 import { Book } from "./Book";
+import AddForm from "./AddForm";  // Import AddForm component
 
 function App() {
   const [availableBooks, setAvailableBooks] = useState<Book[]>([]);
@@ -80,9 +81,18 @@ function App() {
     updateBooks();
   }, []);
 
+  // Add a new book to the library
+  const addBook = (newBook: Book) => {
+    libraryRef.current.addBook(newBook);
+    updateBooks();  // Re-update the book lists after adding a new book
+  };
+
   return (
     <div className="App">
       <h1>Library System</h1>
+
+      {/* AddForm component to add a book */}
+      <AddForm onAddBook={addBook} />
 
       {/* Search Form */}
       <div>
